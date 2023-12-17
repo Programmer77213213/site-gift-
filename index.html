@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do Código</title>
+    <style>
+        body {
+            background-color: red;
+            transition: background-color 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        button {
+            font-size: 18px;
+            padding: 15px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        #pontuacao {
+            font-size: 24px;
+            color: blue; /* Alterado para azul */
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: font-size 0.2s ease, color 0.2s ease;
+        }
+        #videoContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <button id="clicarBtn">Clicar</button>
+    <div id="pontuacao">Pontuação: <span id="pontuacaoValor">0</span></div>
+
+    <div id="videoContainer">
+        <video id="meuVideo" controls>
+            <source src="media/susto   vídeo para dar susto em alguem.mp4" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
+    </div>
+
+    <script>
+        let pontuacao = 0;
+
+        document.getElementById('clicarBtn').addEventListener('click', function() {
+            pontuacao++;
+            document.getElementById('pontuacaoValor').textContent = pontuacao;
+
+            if (pontuacao === 100) {
+                alert("Parabéns! Você atingiu 100 pontos. Abra o vídeo em tela cheia e preste atenção nas informações do gift card.");
+
+                // Exibir o vídeo em tela cheia e iniciar automaticamente
+                const videoContainer = document.getElementById('videoContainer');
+                const videoElement = document.getElementById('meuVideo');
+                
+                document.body.style.backgroundColor = 'black'; // Mudar a cor de fundo para preto
+                videoContainer.style.display = 'block';
+                videoContainer.requestFullscreen().then(() => {
+                    videoElement.play();
+                });
+            }
+
+            // Alterar a cor de fundo com base na pontuação
+            document.body.style.backgroundColor = pontuacao % 2 === 0 ? 'green' : 'red';
+
+            // Animação da pontuação
+            const pontuacaoElement = document.getElementById('pontuacao');
+            pontuacaoElement.style.fontSize = '30px';
+            pontuacaoElement.style.color = 'blue'; // Alterado para azul
+
+            setTimeout(() => {
+                pontuacaoElement.style.fontSize = '24px';
+                pontuacaoElement.style.color = 'blue'; // Alterado para azul
+            }, 200);
+        });
+    </script>
+</body>
+</html>
